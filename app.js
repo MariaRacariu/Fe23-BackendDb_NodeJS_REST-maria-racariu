@@ -1,13 +1,20 @@
 const express = require("express");
 const mysql = require("mysql2");
+const ejs = require("ejs");
+const bodyParser = require("body-parser");
 
 const app = express();
+
+app.use(express.static('public'));
 const port = process.env.PORT || 9000;
 
-app.use(express.json());
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 
 const database = mysql.createPool({
-    host: '127.0.0.1',
+    host: 'localhost',
     port: '3306',
     user: 'root',
     password: 'root',
@@ -17,31 +24,26 @@ const database = mysql.createPool({
     queueLimit: 0,
 })
 
-database.exports = {
-    query: (sql, values) => {
-        return new Promise((resolve, reject) => {
-            pool.query(sql, values, (error, results) => {
-                if (error) {
-                    return reject(error);
-                }
-                return resolve(results);
-            });
+
+function query(sql, values) {
+    return new Promise((resolve, reject) => {
+        database.query(sql, values, (error, results) => {
+            if (error) {
+                return reject(error);
+            }
+            return resolve(results);
         });
-    }
+    });
 }
+
 
 app.listen(port, () => {
     console.log(`Server running on port, ${port}`);
 })
 
-// app.all('/', (res, req) => {
-//     console.log("Hello World");
-// })
-
-// Get all students
-app.get('/students', (req, res) => {
-    database.query('SELECT * FROM students', (error, results) => {
-        if (error) throw error;
-        res.json(results);
-    })
+// Get all
+app.get('/', async (req, res) => {
+    const students = await query("SELECT * FROM students");
+    console.log(students);
+    res.render('index', { students });
 });
