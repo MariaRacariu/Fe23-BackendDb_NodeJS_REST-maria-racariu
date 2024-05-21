@@ -38,12 +38,46 @@ function query(sql, values) {
 
 
 app.listen(port, () => {
-    console.log(`Server running on port, ${port}`);
+    console.log(`Server running on port, http://localhost:${port}`);
 })
 
-// Get all
+// Get 
 app.get('/', async (req, res) => {
-    const students = await query("SELECT * FROM students");
-    console.log(students);
-    res.render('index', { students });
+    const title = "Homepage";
+    res.render('index', { title });
 });
+
+
+// Get students
+app.get('/students', async (req, res) => {
+    const title = "Students";
+    const students = await query("SELECT * FROM students;");
+    console.log(students);
+    res.render('partials/showStudents', { title, students });
+});
+
+
+
+// Get courses
+app.get('/courses', async (req, res) => {
+    const title = "Courses";
+    const courses = await query("SELECT * FROM courses;");
+    console.log(courses);
+    res.render('partials/showCourses', { title, courses });
+});
+
+// A function that generates a table for the data
+// function buildTable(columns) {
+//     // Create all columns
+//     let columnSize = "";
+//     // Create column for every column
+//     for (let i = 0; i < columns.length; i++) {
+//         // If columns length is bigger then i take away 1
+//         if (i < columns.length - 1) {
+//             columnSize += columns[i] + ",";
+//         } else {
+//             columnSize += columns[i];
+//         }
+//     }
+//     return columnSize;
+// }
