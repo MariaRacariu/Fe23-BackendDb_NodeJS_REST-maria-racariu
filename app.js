@@ -40,8 +40,33 @@ app.listen(port, () => {
 
 //
 app.get('/', async (req, res) => {
+
     const title = "Homepage";
-    res.render('index', { title });
+    // res.render('index', { title });
+    // const { id } = req.params;
+    // console.log(studentInfo);
+    // const studentInfo = await query('SELECT courses.name, students.firstName, students.lastName, students.id FROM students_courses INNER JOIN courses ON students_courses.courseID = courses.id INNER JOIN students ON students_courses.studentID = students.id;');
+    const studentInfo = undefined;
+    res.render('index', { studentInfo, title });
+});
+
+//Button
+app.post('/', async (req, res) => {
+    const title = "Homepage";
+    // const studentInfo = await query('SELECT courses.name, students.firstName, students.lastName, students.id FROM students_courses INNER JOIN courses ON students_courses.courseID = courses.id INNER JOIN students ON students_courses.studentID = students.id;');
+
+    const id = req.body.studentSearch;
+
+    if (id) {
+        const studentInfo = await query('SELECT courses.name, students.firstName, students.lastName, students.id FROM students_courses INNER JOIN courses ON students_courses.courseID = courses.id INNER JOIN students ON students_courses.studentID = students.id WHERE students.id = ?;', [id]);
+        console.log(studentInfo);
+        res.render('index', { studentInfo, title });
+    } else {
+        const studentInfo = undefined;
+        res.render('index', { studentInfo, title });
+    }
+
+
 });
 
 // Get students
@@ -50,15 +75,15 @@ app.get('/students', async (req, res) => {
 
     const title = "Students";
     const students = await query("SELECT * FROM students;");
-    console.log(students);
+    // console.log(students);
     res.render('partials/showStudents', { title, students });
 });
 
 // Get courses
 app.get('/courses', async (req, res) => {
     const title = "Courses";
-    const courses = await query("SELECT * FROM courses;");
-    console.log(courses);
+    const courses = await query("SELECT courses.id, courses.name FROM courses;");
+    // console.log(courses);
     res.render('partials/showCourses', { title, courses });
 });
 
@@ -66,9 +91,9 @@ app.get('/courses', async (req, res) => {
 app.get('/studentsCourses', async (req, res) => {
     const title = "What classes students take:";
     const relationships = await query("SELECT courses.name, students.firstName, students.lastName, students.id FROM students_courses INNER JOIN courses ON students_courses.courseID = courses.id INNER JOIN students ON students_courses.studentID = students.id;");
-    console.log(relationships);
+    // console.log(relationships);
     res.render('partials/showRelationship', { relationships, title });
-})
+});
 
 // Show student name with all the courses they take
 app.get('/students/:id', async (req, res) => {
@@ -76,4 +101,14 @@ app.get('/students/:id', async (req, res) => {
     const studentInfo = await query('SELECT courses.name, students.firstName, students.lastName, students.id FROM students_courses INNER JOIN courses ON students_courses.courseID = courses.id INNER JOIN students ON students_courses.studentID = students.id WHERE studentID = ?;', [id]);
     // console.log(studentInfo);
     res.render('partials/showStudentInfo', { studentInfo });
+});
+
+
+
+// Show course info
+app.get('/courses/:id', async (req, res) => {
+    const { id } = req.params;
+    const courseInfo = await query('SELECT courses.name, courses.description FROM courses WHERE id = ?;', [id]);
+    console.log(courseInfo);
+    res.render('partials/showCourse', { courseInfo });
 })

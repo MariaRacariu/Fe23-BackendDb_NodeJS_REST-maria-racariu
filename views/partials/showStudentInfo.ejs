@@ -1,11 +1,12 @@
-<div>
-    <% studentInfo.forEach(student => { %>
-        <p><%= student.firstName %> <%= student.lastName %></p>
-    <% }); %>
+<% if(studentInfo){ %>
+    
+    <div>
+        <!-- studentInfo -->
+        <h2><%= studentInfo[0].firstName %> <%= studentInfo[0].lastName %></h2>
+        
+        <% studentInfo.forEach(student => { %>
+            <p><%= student.name %></p>
+        <% }); %>
+    </div>
 
-   <% for(let i = 0; i < 1; i++){ %>
-    <% for(const student in studentInfo){ %>
-        <%= console.log(student.firstName); %>
-    <% } %>
-   <% } %>
-</div>
+<% } %>

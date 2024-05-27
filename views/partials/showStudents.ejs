@@ -1,5 +1,5 @@
 <h2><%- title %></h2>
 
 <% students.forEach(student => { %>
-    <p><%= student.firstName %> <%= student.lastName %></p>
+    <a href="http://localhost:9000/students/<%= student.id %>"><p><%= student.firstName %> <%= student.lastName %></p></a>
 <% }); %>

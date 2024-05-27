@@ -1,6 +1,7 @@
 <div>
     <h2><%- title %></h2>
     <% courses.forEach(course => { %>
-        <p><%= course.name %></p>
+        <a href="http://localhost:9000/courses/<%= course.id %>"><p><%= course.name %></p></a>
+        
     <% }); %>
 </div>
