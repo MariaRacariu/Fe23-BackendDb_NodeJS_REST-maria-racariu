@@ -1,7 +1,7 @@
 <div>
-    <h2>Test</h2>
+    <h2><%- title %></h2>
     <% relationships.forEach(relationship => { %>
-        <p><%= relationship.firstName %> <%= relationship.lastName %></p>
-        <p><%= relationship.name %></p>
+        <a href="http://localhost:9000/students/<%= relationship.id %>"><p><%= relationship.firstName %> <%= relationship.lastName %></p></a>
+        <p><b><%= relationship.name %></b></p>
     <% }); %>
 </div>

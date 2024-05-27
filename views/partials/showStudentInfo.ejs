@@ -1,0 +1,11 @@
+<div>
+    <% studentInfo.forEach(student => { %>
+        <p><%= student.firstName %> <%= student.lastName %></p>
+    <% }); %>
+
+   <% for(let i = 0; i < 1; i++){ %>
+    <% for(const student in studentInfo){ %>
+        <%= console.log(student.firstName); %>
+    <% } %>
+   <% } %>
+</div>
