@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 21, 2024 at 10:13 AM
+-- Generation Time: May 27, 2024 at 07:55 AM
 -- Server version: 5.7.24
--- PHP Version: 8.0.1
+-- PHP Version: 8.1.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,6 +33,19 @@ CREATE TABLE `courses` (
   `description` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`id`, `name`, `description`) VALUES
+(1, 'Astronomy', 'Astronomy involved observation of the night skies with telescopes, as well as gaining an understanding of the various phenomena that go on in space, such as Lunar phases and Space weather.'),
+(2, 'Charms', 'Charms comprised of a very wide range of different spells concerned with giving a target (be it an object or an individual) new and unexpected properties and/or making the target perform certain actions, among other possible effects.'),
+(3, 'Defence Against the Dark Arts', 'Defence Against the Dark Arts, commonly shortened to D.A.D.A., was the class that taught students how to protect themselves against the Dark Arts, how to use offencive and protective spells, and how to properly handle and deal with dark creatures.'),
+(4, 'Herbology', 'Herbology was the study of magical plants and fungi. Students learned how to properly care for and utilise different plants, as well as about their magical properties and what they were used for.'),
+(5, 'History of Magic', 'History of Magic was the study of the history of the wizarding world. The lessons in this class were only lectures about significant names, dates and events in wizarding history.'),
+(6, 'Potions', 'Potions was the exact art and subtle science of creating various liquid mixtures with different magical effects, many of which could not be achieved through spells.'),
+(7, 'Transfiguration', 'Transfiguration was a very difficult theory-based subject that practised the art of changing the form or appearance of an object, as well as changing it back. It was also possible to change inanimate objects into living creatures and vice versa.');
+
 -- --------------------------------------------------------
 
 --
@@ -51,7 +64,16 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `firstName`, `lastName`, `town`) VALUES
-(1, 'Maria', 'Racariu', 'Malmö');
+(1, 'Maria', 'Racariu', 'Malmö'),
+(2, 'Robbie', 'Kemp', 'London'),
+(3, 'Rasmus', 'Liiv', 'Malmö'),
+(4, 'Owen', 'McLean', 'Birmingham'),
+(5, 'Ash', 'Bending', 'Bristol'),
+(6, 'Jade', 'Passmore', 'Bristol'),
+(7, 'Harry', 'Potter', 'London'),
+(8, 'Dobby', 'HouseElf', 'London'),
+(9, 'Albus', 'Dumbledore', 'London'),
+(10, 'Severus', 'Snape', 'London');
 
 -- --------------------------------------------------------
 
@@ -97,13 +119,13 @@ ALTER TABLE `students_courses`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `students_courses`
