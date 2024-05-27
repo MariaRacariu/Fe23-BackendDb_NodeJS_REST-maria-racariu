@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 27, 2024 at 07:55 AM
+-- Generation Time: May 27, 2024 at 02:30 PM
 -- Server version: 5.7.24
--- PHP Version: 8.1.0
+-- PHP Version: 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -88,6 +88,20 @@ CREATE TABLE `students_courses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Dumping data for table `students_courses`
+--
+
+INSERT INTO `students_courses` (`id`, `studentID`, `courseID`) VALUES
+(1, 3, 5),
+(2, 4, 7),
+(3, 10, 2),
+(4, 2, 6),
+(5, 3, 2),
+(6, 8, 1),
+(7, 1, 4),
+(8, 9, 3);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -131,7 +145,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `students_courses`
 --
 ALTER TABLE `students_courses`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
