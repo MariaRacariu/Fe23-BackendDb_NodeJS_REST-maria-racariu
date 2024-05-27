@@ -61,3 +61,10 @@ app.get('/courses', async (req, res) => {
     console.log(courses);
     res.render('partials/showCourses', { title, courses });
 });
+
+// Get what classes students attend
+app.get('/studentsCourses', async (req, res) => {
+    const relationships = await query("SELECT courses.id, courses.name, students.firstName, students.lastName FROM students_courses INNER JOIN courses ON students_courses.courseID = courses.id INNER JOIN students ON students_courses.studentID = students.id;");
+    console.log(relationships);
+    res.render('partials/showRelationship', { relationships });
+})
