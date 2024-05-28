@@ -16,8 +16,8 @@
         <% students.forEach(student => { %>
             <tr>
                 <td><%= student.id %></td>
-                <td><a href="http://localhost:9000/students/<%= student.id %>"><p><%= student.firstName %></p></a></td>
-                <td><a href="http://localhost:9000/students/<%= student.id %>"><p><%= student.lastName %></p></a></td>
+                <td><a href="http://localhost:9000/students/<%= student.id %>"><p><%= student.fName %></p></a></td>
+                <td><a href="http://localhost:9000/students/<%= student.id %>"><p><%= student.lName %></p></a></td>
                 <td><%= student.town %></td>
             </tr>
         <% }); %>
