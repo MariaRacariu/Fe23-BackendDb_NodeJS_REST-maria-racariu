@@ -55,12 +55,23 @@ app.post('/', async (req, res) => {
     const title = "Homepage";
     // const studentInfo = await query('SELECT courses.name, students.firstName, students.lastName, students.id FROM students_courses INNER JOIN courses ON students_courses.courseID = courses.id INNER JOIN students ON students_courses.studentID = students.id;');
 
-    const id = req.body.studentSearch;
+    const studentInput = req.body.studentSearch;
+    const courseInput = req.body.courseSearch;
 
-    if (id) {
-        const studentInfo = await query('SELECT courses.name, students.firstName, students.lastName, students.id FROM students_courses INNER JOIN courses ON students_courses.courseID = courses.id INNER JOIN students ON students_courses.studentID = students.id WHERE students.id = ?;', [id]);
+    const courseInputSpecial = `%${courseInput}%`;
+    const replaceInput = courseInputSpecial.replace(/,/g, '');
+    // console.log(replaceInput);
+
+    if (studentInput) {
+        const studentInfo = await query('SELECT courses.name, students.firstName, students.lastName, students.id FROM students_courses INNER JOIN courses ON students_courses.courseID = courses.id INNER JOIN students ON students_courses.studentID = students.id WHERE students.id = ? OR students.firstName = ? OR students.lastName = ? OR students.town = ?;', [studentInput, studentInput, studentInput, studentInput]);
         console.log(studentInfo);
         res.render('index', { studentInfo, title });
+    } if (courseInput) {
+        console.log(courseInput);
+        // const courseInfo = await query('SELECT courses.id, courses.name, courses.description, students.firstName, students.lastName FROM students_courses INNER JOIN courses ON students_courses.courseID = courses.id INNER JOIN students ON students_courses.studentID = students.id WHERE courses.id = ? OR courses.name = ? OR courses.description LIKE ?;', [courseInput, courseInput, replaceInput]);
+        const courseInfo = await query('SELECT courses.id, courses.name, courses.description, students.firstName, students.lastName FROM students_courses INNER JOIN courses ON students_courses.courseID = courses.id INNER JOIN students ON students_courses.studentID = students.id WHERE courses.id = ? OR courses.name = ? OR courses.description = ?;', [courseInput, courseInput, courseInput]);
+        console.log(courseInfo);
+        // res.render('index', { studentInfo, title });
     } else {
         const studentInfo = undefined;
         res.render('index', { studentInfo, title });
@@ -112,3 +123,4 @@ app.get('/courses/:id', async (req, res) => {
     console.log(courseInfo);
     res.render('partials/showCourse', { courseInfo });
 })
+
