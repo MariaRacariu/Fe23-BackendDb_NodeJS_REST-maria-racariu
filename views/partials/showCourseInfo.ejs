@@ -1,0 +1,28 @@
+<style>
+    .tableContainer, td, th{
+        border: solid 2px black;
+    }
+</style>
+
+<% if(courseInfo){ %>
+    
+    <div>
+        <table>
+            <tr>
+                <% if(courseInfo[0]){Object.keys(courseInfo[0]).forEach(header => { %>
+                    <th><%= header %></th>
+                <% })}; %>
+            </tr>
+            <% courseInfo.forEach(course => { %>
+                <tr>
+                    <td><%= course.id%></td>
+                    <td><%= course.name %></td>
+                    <td><%= course.description %></td>
+                    <td><%= course.firstName %></td>
+                    <td><%= course.lastName %></td>
+                </tr>
+            <% }); %>
+        </table>
+    </div>
+
+<% } %>

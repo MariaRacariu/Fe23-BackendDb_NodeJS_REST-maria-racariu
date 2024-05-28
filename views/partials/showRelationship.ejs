@@ -1,7 +1,24 @@
+<style>
+    .tableContainer, td, th{
+        border: solid 2px black;
+    }
+</style>
+
 <div>
     <h2><%- title %></h2>
-    <% relationships.forEach(relationship => { %>
-        <a href="http://localhost:9000/students/<%= relationship.id %>"><p><%= relationship.firstName %> <%= relationship.lastName %></p></a>
-        <p><b><%= relationship.name %></b></p>
-    <% }); %>
+    <table class="tableContainer">
+        <tr>
+            <% if(relationships[0]){Object.keys(relationships[0]).forEach(header => { %>
+                <th><%= header %></th>
+            <% })}; %>
+        </tr>
+        <% relationships.forEach(relationship => { %>
+            <tr>
+                <td><%= relationship.id %></td>
+                <td><%= relationship.name %></td></td>
+                <td><a href="http://localhost:9000/students/<%= relationship.id %>"><p><%= relationship.firstName %></p></a></td>
+                <td><a href="http://localhost:9000/students/<%= relationship.id %>"><p><%= relationship.lastName %></p></a></td>
+            </tr>
+        <% }); %>
+    </table>
 </div>

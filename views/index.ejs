@@ -5,20 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="#" type="image/x-icon">
     <title>Document</title>
-    <script src="./main.js"></script>
-    <link rel="stylesheet" href="./style.css">
     <link rel="shortcut icon" href="#" type="image/x-icon">
+
+    <style>
+        .searchContainer{
+            background-color: rgb(227, 227, 227);
+        }
+    </style>
 </head>
 <body>
     <h1><%- title %></h1>
-
-    <a href="http://localhost:9000/students">View all students</a>
-    <a href="http://localhost:9000/courses">View all courses</a>
-    <a href="http://localhost:9000/studentsCourses">View the classes students attend</a>
-
-
-
     <div>
+        <a href="http://localhost:9000/students">View all students</a>
+        <a href="http://localhost:9000/courses">View all courses</a>
+        <a href="http://localhost:9000/studentsCourses">View the classes students attend</a>
+    </div>
+    
+    <div class="searchContainer">
         <h2>Search students</h2>
         <form action="/" method="POST">
             <label for="studentSearch">Search for a student first/last name:</label>
@@ -31,20 +34,16 @@
         </div>
     </div>
 
-
-
-    <div>
+    <div class="searchContainer">
         <h2>Search Courses</h2>
         <form action="/" method="POST">
             <label for="courseSearch">Search for a course:</label>
             <input type="text" name="courseSearch" id="courseSearch">
             <button type="submit" name="courseSearchBtn">Search</button>
         </form>
+        <h2>Results:</h2>
         <div>
-            <h3>Name</h3>
-            <p><b>ID</b></p>
-            <p>Description</p>
-            <p>Students that take this course</p>
+            <%- include('partials/showCourseInfo') %>
         </div>
     </div>
 </body>

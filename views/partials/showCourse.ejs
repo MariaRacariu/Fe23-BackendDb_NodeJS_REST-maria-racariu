@@ -1,3 +1,20 @@
-<!-- courseInfo -->
-<h2><%= courseInfo[0].name %></h2>
-<p><%= courseInfo[0].description %></p>
+<style>
+    .tableContainer, td, th{
+        border: solid 2px black;
+    }
+</style>
+<body>
+    <table class="tableContainer">
+        <tr>
+        <% if(courseInfo[0]){Object.keys(courseInfo[0]).forEach(header => { %>
+            <th><%= header %></th>
+        <% })}; %>
+        </tr>
+        <tr>
+            <td><%= courseInfo[0].id %></td>
+            <td><%= courseInfo[0].name %></td>
+            <td><%= courseInfo[0].description %></td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<style>
+    .tableContainer, td, th{
+        border: solid 2px black;
+    }
+</style>
+<div>
+    <table class="tableContainer">
+        <tr>
+            <% if(studentInfo[0]){Object.keys(studentInfo[0]).forEach(header => { %>
+                <th><%= header %></th>
+            <% })}; %>
+        </tr>
+        <tr>
+            <td><%= studentInfo[0].id %></td>
+            <td><%= studentInfo[0].firstName %></td>
+            <td><%= studentInfo[0].lastName %></td>
+            
+            <% studentInfo.forEach(student => { %>
+                    <td><%= student.name %></td>  
+            <% }); %>
+        </tr>
+    </table>
+    
+    
+</div>

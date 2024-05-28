@@ -1,7 +1,25 @@
+<style>
+    .tableContainer, td, th{
+        border: solid 2px black;
+    }
+</style>
 <div>
     <h2><%- title %></h2>
-    <% courses.forEach(course => { %>
-        <a href="http://localhost:9000/courses/<%= course.id %>"><p><%= course.name %></p></a>
-        
-    <% }); %>
+    
+
+    <table class="tableContainer">
+        <tr>
+            <% if(courses[0]){Object.keys(courses[0]).forEach(header => { %>
+            <th><%= header %></th>
+            <% })}; %>
+        </tr>
+       
+        <% courses.forEach(course => { %>
+        <tr>
+            <td><%= course.id %></td>
+            <td><a href="http://localhost:9000/courses/<%= course.id %>"><p><%= course.name %></p></a></td>
+        </tr>
+        <% }); %>
+
+    </table>
 </div>
