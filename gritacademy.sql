@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 27, 2024 at 02:30 PM
+-- Generation Time: May 29, 2024 at 12:11 PM
 -- Server version: 5.7.24
--- PHP Version: 8.0.1
+-- PHP Version: 8.1.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -54,8 +54,8 @@ INSERT INTO `courses` (`id`, `name`, `description`) VALUES
 
 CREATE TABLE `students` (
   `id` bigint(20) NOT NULL,
-  `firstName` varchar(255) NOT NULL,
-  `lastName` varchar(255) NOT NULL,
+  `fName` varchar(255) NOT NULL,
+  `lName` varchar(255) NOT NULL,
   `town` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -63,7 +63,7 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `firstName`, `lastName`, `town`) VALUES
+INSERT INTO `students` (`id`, `fName`, `lName`, `town`) VALUES
 (1, 'Maria', 'Racariu', 'Malmö'),
 (2, 'Robbie', 'Kemp', 'London'),
 (3, 'Rasmus', 'Liiv', 'Malmö'),
@@ -83,15 +83,15 @@ INSERT INTO `students` (`id`, `firstName`, `lastName`, `town`) VALUES
 
 CREATE TABLE `students_courses` (
   `id` bigint(20) NOT NULL,
-  `studentID` bigint(20) DEFAULT NULL,
-  `courseID` bigint(20) DEFAULT NULL
+  `students_id` bigint(20) DEFAULT NULL,
+  `courses_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `students_courses`
 --
 
-INSERT INTO `students_courses` (`id`, `studentID`, `courseID`) VALUES
+INSERT INTO `students_courses` (`id`, `students_id`, `courses_id`) VALUES
 (1, 3, 5),
 (2, 4, 7),
 (3, 10, 2),
@@ -99,7 +99,8 @@ INSERT INTO `students_courses` (`id`, `studentID`, `courseID`) VALUES
 (5, 3, 2),
 (6, 8, 1),
 (7, 1, 4),
-(8, 9, 3);
+(8, 9, 3),
+(9, 1, 6);
 
 --
 -- Indexes for dumped tables
@@ -122,8 +123,8 @@ ALTER TABLE `students`
 --
 ALTER TABLE `students_courses`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `studentID` (`studentID`),
-  ADD KEY `courseID` (`courseID`);
+  ADD KEY `studentID` (`students_id`),
+  ADD KEY `courseID` (`courses_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -145,7 +146,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `students_courses`
 --
 ALTER TABLE `students_courses`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -155,8 +156,8 @@ ALTER TABLE `students_courses`
 -- Constraints for table `students_courses`
 --
 ALTER TABLE `students_courses`
-  ADD CONSTRAINT `students_courses_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `students` (`id`),
-  ADD CONSTRAINT `students_courses_ibfk_2` FOREIGN KEY (`courseID`) REFERENCES `courses` (`id`);
+  ADD CONSTRAINT `students_courses_ibfk_1` FOREIGN KEY (`students_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `students_courses_ibfk_2` FOREIGN KEY (`courses_id`) REFERENCES `courses` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
