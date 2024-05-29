@@ -5,7 +5,6 @@
 </style>
 
 <% if(courseInfo){ %>
-    
     <div>
         <table>
             <tr>
@@ -24,5 +23,7 @@
             <% }); %>
         </table>
     </div>
-
+    
+<% }else{ %>
+    <div><p>This course does not exist, please view list of courses for all available courses</p></div>
 <% } %>

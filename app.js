@@ -1,3 +1,6 @@
+// REST API using a php database made by Maria Racariu
+// There are set console.logs if needed for debugging
+
 const express = require("express");
 const mysql = require("mysql2");
 const ejs = require("ejs");
@@ -6,12 +9,15 @@ const bodyParser = require("body-parser");
 const app = express();
 
 app.use(express.static('public'));
+
+// ATTENTION! CHANGE PORT IF NEEDED
 const port = process.env.PORT || 9000;
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Database
 const database = mysql.createPool({
     host: 'localhost',
     port: '3306',
@@ -38,7 +44,7 @@ app.listen(port, () => {
     console.log(`Server running on port, http://localhost:${port}`);
 })
 
-//
+//Base url for Homepage
 app.get('/', async (req, res) => {
     const title = "Homepage";
     const studentInfo = undefined;
@@ -46,7 +52,7 @@ app.get('/', async (req, res) => {
     res.render('index', { studentInfo, title, courseInfo });
 });
 
-//Button
+//Home page search options
 app.post('/', async (req, res) => {
     const title = "Homepage";
 
@@ -59,22 +65,28 @@ app.post('/', async (req, res) => {
 
     if (studentInput) {
         const studentInfo = await query('SELECT students.id, students.fName, students.lName, courses.name FROM students_courses INNER JOIN courses ON students_courses.courses_id = courses.id INNER JOIN students ON students_courses.students_id = students.id WHERE students.id = ? OR students.fName = ? OR students.lName = ? OR students.town = ?;', [studentInput, studentInput, studentInput, studentInput]);
-        console.log(studentInfo);
+        // console.log(studentInfo);
         const courseInfo = undefined;
+
         if (studentInfo == "") {
+            const studentInfo = undefined;
+            res.render('index', { studentInfo, title, courseInfo });
+        } else {
             res.render('index', { studentInfo, title, courseInfo });
         }
-        res.render('index', { studentInfo, title, courseInfo });
     } if (courseInput) {
         console.log(courseInput);
         // const courseInfo = await query('SELECT courses.id, courses.name, courses.description, students.fName, students.lName FROM students_courses INNER JOIN courses ON students_courses.courses_id = courses.id INNER JOIN students ON students_courses.students_id = students.id WHERE courses.id = ? OR courses.name = ? OR courses.description LIKE ?;', [courseInput, courseInput, replaceInput]);
         const courseInfo = await query('SELECT courses.id, courses.name, courses.description, students.fName, students.lName FROM students_courses INNER JOIN courses ON students_courses.courses_id = courses.id INNER JOIN students ON students_courses.students_id = students.id WHERE courses.id = ? OR courses.name = ? OR courses.description LIKE ?;', [courseInput, courseInput, replaceInput]);
-        console.log(courseInfo);
+        // console.log(courseInfo);
         const studentInfo = undefined;
-        if (studentInfo == "") {
+        if (courseInfo == "") {
+            const courseInfo = undefined;
+            res.render('index', { courseInfo, title, studentInfo });
+        } else {
             res.render('index', { courseInfo, title, studentInfo });
         }
-        res.render('index', { courseInfo, title, studentInfo });
+
     } else {
         const studentInfo = undefined;
         const courseInfo = undefined;
@@ -111,10 +123,10 @@ app.get('/students/:id', async (req, res) => {
     const { id } = req.params;
     // console.log(id);
     const studentInfo = await query('SELECT students.id, students.fName, students.lName, courses.name  FROM students_courses INNER JOIN courses ON students_courses.courses_id = courses.id INNER JOIN students ON students_courses.students_id = students.id WHERE students_id = ?;', [id]);
-    console.log(studentInfo);
+    // console.log(studentInfo);
     if (studentInfo == "") {
         const studentInfo = await query('SELECT * FROM students WHERE id = ?', [id]);
-        console.log(studentInfo);
+        // console.log(studentInfo);
         res.render('partials/showStudent', { studentInfo });
     }
     res.render('partials/showStudent', { studentInfo });

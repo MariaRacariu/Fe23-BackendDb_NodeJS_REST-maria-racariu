@@ -3,6 +3,7 @@
         border: solid 2px black;
     }
 </style>
+
 <div>
     <table class="tableContainer">
         <tr>
@@ -14,12 +15,13 @@
             <td><%= studentInfo[0].id %></td>
             <td><%= studentInfo[0].fName %></td>
             <td><%= studentInfo[0].lName %></td>
-            
-            <% studentInfo.forEach(student => { %>
+            <% if(studentInfo[0].town){ %>
+                <td><%= studentInfo[0].town %></td>
+            <% }else{ %>
+                <% studentInfo.forEach(student => { %>
                     <td><%= student.name %></td>  
-            <% }); %>
+                <% }); %>
+            <% } %>
         </tr>
     </table>
-    
-    
 </div>
